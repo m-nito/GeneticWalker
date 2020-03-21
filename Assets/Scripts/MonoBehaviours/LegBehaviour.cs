@@ -8,4 +8,8 @@ public class LegBehaviour : MonoBehaviour
     {
         this.gameObject.transform.Rotate(Vector3.left, speed);
     }
+    public void Backward(float speed)
+    {
+        this.gameObject.transform.Rotate(Vector3.right, speed);
+    }
 }

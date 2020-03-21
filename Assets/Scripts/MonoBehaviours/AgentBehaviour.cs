@@ -56,13 +56,22 @@ public class AgentBehaviour : MonoBehaviour
         var outputs = this.Model.GetOutput(inputs);
 
         // Move agent
-        first.Forward(outputs[0]);
-        second.Forward(outputs[1]);
+        if (_MotionStage > 0.5f)
+        {
+            first.Forward(outputs[0]);
+            second.Backward(outputs[1]);
+        }
+        else
+        {
+            first.Backward(outputs[0]);
+            second.Forward(outputs[1]);
+        }
 
-        Debug.Log($"{outputs[0]},{outputs[1]}");
+        // Debug.Log($"{outputs[0]},{outputs[1]}");
 
         if (this.Head.Touched)
         {
+            this.Score = (int)( (this.transform.position.z - this.StartingPosition.z) * 10);
             this.OnFinish?.Invoke(this);
             Debug.Log($"Atempt ended. Score: {this.Score}");
             return;

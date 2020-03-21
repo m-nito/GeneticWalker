@@ -6,7 +6,7 @@ using UnityEngine;
 
 public class TrialBehaviour : MonoBehaviour
 {
-    static int a = 0;
+    static int trialCount = 0;
 
     private AgentBehaviour[] Agents;
     private Dictionary<Gene, int> Records = new Dictionary<Gene, int>();
@@ -18,9 +18,8 @@ public class TrialBehaviour : MonoBehaviour
 
     public void OnAgentFinish(AgentBehaviour agent)
     {
-        if (a > 100) return;
-
         agent.OnFinish -= this.OnAgentFinish;
+        // if (trialCount > 10000) return;
         var result = agent.GetResult();
         this.Records.Add(result.gene, result.score);
         var pos = agent.StartingPosition;
@@ -46,7 +45,7 @@ public class TrialBehaviour : MonoBehaviour
         }
         Destroy(agent.gameObject);
 
-        a++;
+        trialCount++;
     }
 
     private void Update()
